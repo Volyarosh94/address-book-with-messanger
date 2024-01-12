@@ -45,10 +45,10 @@ export const ContactInfo = ({
   };
 
   const handleCallClick = (phone: string) => {
-    console.log("calling -", phone);
+    // console.log("calling -", phone);
   };
   const handleHangUpClick = () => {
-    console.log("hang up");
+    // console.log("hang up");
   };
 
   return (

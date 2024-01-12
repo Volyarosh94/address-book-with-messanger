@@ -34,7 +34,6 @@ export const makeSearchApi =
         },
       });
       let data = await res.json();
-      console.log("seacrchData", data);
       dispatch(searchResult(data));
     } catch (err: any) {
       dispatch(searchError(true));

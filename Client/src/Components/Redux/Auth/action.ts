@@ -55,7 +55,6 @@ export const uploadPic = (pic) => async (dispatch: Dispatch) => {
       body: profile,
     });
     let data = await res.json();
-    console.log(data);
     dispatch(actionPic(data.secure_url));
   } catch (error) {
     dispatch(authLoading(false));

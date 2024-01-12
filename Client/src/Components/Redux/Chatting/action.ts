@@ -68,7 +68,6 @@ export const sendMessageApi = ((
       });
 
       let data = await res.json();
-      console.log("data", data);
       socket.emit("new message", data);
       dispatch(sendMessage(data));
     } catch (err: any) {
