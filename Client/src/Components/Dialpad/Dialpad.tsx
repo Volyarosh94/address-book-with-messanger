@@ -36,7 +36,9 @@ export const DialPad = ({
     setIsCalling(false);
   };
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPhoneNumber(e.target.value);
+    if (e.target.value) {
+      setPhoneNumber(e.target.value);
+    }
   };
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export const DialPad = ({
       transition={{ duration: 0.5 }}
       className="flex flex-col w-72 absolute right-5 p-4 rounded-xl border border-main-gray bg-white drop-shadow-md"
     >
-      {/* <PhoneInput
+      <PhoneInput
         country={"us"}
         placeholder={"Enter phone number"}
         value={phoneNumber}
@@ -67,7 +69,7 @@ export const DialPad = ({
         onChange={(value, data, event, formattedValue) =>
           handleInputChange(event)
         }
-      /> */}
+      />
       <div className="flex flex-wrap justify-around mt-2">
         {digits.map((digit, i) => (
           <button
