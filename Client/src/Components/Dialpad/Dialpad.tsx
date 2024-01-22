@@ -1,10 +1,12 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import PhoneInput from "react-phone-input-2";
 import { motion } from "framer-motion";
 import "react-phone-input-2/lib/style.css";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import CallIcon from "@mui/icons-material/Call";
 import CallEndIcon from "@mui/icons-material/CallEnd";
+import PI, { PhoneInputProps } from "react-phone-input-2";
+
+const PhoneInput: React.FC<PhoneInputProps> = (PI as any).default || PI;
 
 interface Props {
   selectedPhone: string;
@@ -64,9 +66,9 @@ export const DialPad = ({
         }}
         containerStyle={{ width: "100%" }}
         inputStyle={{ width: "100%" }}
-        // onChange={(value, data, event, formattedValue) =>
-        //   handleInputChange(event)
-        // }
+        onChange={(value, data, event, formattedValue) =>
+          handleInputChange(event)
+        }
       />
       <div className="flex flex-wrap justify-around mt-2">
         {digits.map((digit, i) => (
