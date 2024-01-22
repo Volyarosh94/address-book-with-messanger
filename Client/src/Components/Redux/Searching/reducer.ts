@@ -1,49 +1,40 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { SEARCH_ERROR, SEARCH_LOADING, SEARCH_RESULT } from "./action";
+import { User } from "../Auth/reducer";
+import { SEARCH_LOADING, SEARCH_ERROR, SEARCH_RESULT } from "./action";
 
-export interface User {
-  email: string;
-  isAdmin: boolean;
-  name: string;
-  password: string;
-  pic: string;
-  _id: string;
-}
-
-interface InitState {
+interface InitialState {
   search_result: User[];
   loading: boolean;
   error: boolean;
 }
 
-const initState: InitState = {
+const initState: InitialState = {
   search_result: [],
   loading: false,
   error: false,
 };
 
 type ActionPayloadType =
-  | { type: "SEARCH_RESULT"; payload: User[] }
-  | { type: "SEARCH_ERROR"; payload: boolean }
-  | { type: "SEARCH_LOADING"; payload: boolean };
+  | { type: typeof SEARCH_RESULT; payload: User[] }
+  | { type: typeof SEARCH_ERROR; payload: boolean }
+  | { type: typeof SEARCH_LOADING; payload: boolean };
 
 export const serachReducer = (
-  store: InitState = initState,
+  state = initState,
   { type, payload }: ActionPayloadType
-) => {
+): InitialState => {
   switch (type) {
     case SEARCH_RESULT:
       return {
-        ...store,
+        ...state,
         search_result: payload,
         loading: false,
         error: false,
       };
     case SEARCH_ERROR:
-      return { ...store, error: payload };
+      return { ...state, error: payload };
     case SEARCH_LOADING:
-      return { ...store, loading: payload };
+      return { ...state, loading: payload };
     default:
-      return store;
+      return state;
   }
 };

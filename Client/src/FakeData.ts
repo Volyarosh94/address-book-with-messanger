@@ -255,7 +255,7 @@ const statuses = [
 
 const posterWidth = 400;
 const posterHeight = 400;
-let _canvas: any;
+let _canvas: HTMLCanvasElement;
 function makePoster(color: string) {
   if (!_canvas) {
     _canvas = document.createElement("canvas");
@@ -263,9 +263,13 @@ function makePoster(color: string) {
     _canvas.height = posterHeight;
   }
   const ctxt = _canvas.getContext("2d");
-  ctxt.fillStyle = color;
-  ctxt.fillRect(0, 0, posterWidth, posterHeight);
-  return _canvas.toDataURL();
+  if (ctxt) {
+    ctxt.fillStyle = color;
+    ctxt.fillRect(0, 0, posterWidth, posterHeight);
+    return _canvas.toDataURL();
+  } else {
+    throw new Error("Unable to get 2D context from canvas");
+  }
 }
 
 const posterColors = [

@@ -29,7 +29,6 @@ export const Contacts = () => {
   return (
     <>
       <div className="h-screen w-full">
-        {/* <SideNavbar /> */}
         <div className="w-full h-full flex bg-white">
           <div
             className={`${

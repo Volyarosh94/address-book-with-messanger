@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { LoginComp } from "../pages/Auth/Login";
 import { RegisterComp } from "../pages/Auth/Registration";
 import { HomeComp } from "../pages/Home";
@@ -14,6 +14,7 @@ export const AllRoutes = () => {
         <Route path="/contact-info" element={<ContactInfo />} />
         <Route path="/register" element={<RegisterComp />} />
         <Route path="/login" element={<LoginComp />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   );

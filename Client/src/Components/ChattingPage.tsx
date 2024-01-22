@@ -7,7 +7,7 @@ import styled from "@emotion/styled";
 import SendIcon from "@mui/icons-material/Send";
 import InputEmoji from "react-input-emoji";
 import { RefObject, useEffect, useRef, useState } from "react";
-import { ChatlogicStyling, isSameSender } from "./ChatstyleLogic.js";
+import { ChatlogicStyling, isSameSender } from "../utils";
 import {
   fetchCurrentMessages,
   sendMessageApi,
@@ -18,24 +18,23 @@ import io, { Socket } from "socket.io-client";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 import { useAppDispatch, useAppSelector } from "./Redux/hooks.js";
 import { Action } from "redux";
-import { Message } from "./Redux/Chatting/Reducer.js";
+import { Message } from "./Redux/Chatting/reducer.js";
 
 const SERVER_POINT = "https://messanger-br6c.onrender.com";
-let currentChattingWith: number;
+let currentChattingWith: string;
 let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
 export const ChattingPage = () => {
   const { user, token } = useAppSelector((store) => store.user);
   const { messages } = useAppSelector((store) => store.chatting);
   const { unseenmsg } = useAppSelector((store) => store.notification);
+  const { chatting } = useAppSelector((store) => store.chatting);
   const {
-    chatting: {
-      isGroupChat,
-      chatName,
-      user: { pic, name },
-      _id,
-    },
-  } = useAppSelector((store) => store.chatting);
+    isGroupChat,
+    chatName,
+    user: { pic, name },
+    _id,
+  } = chatting || { user: {} };
   const dispatch = useAppDispatch();
   const scrolldiv = useRef<HTMLDivElement>(null);
 
@@ -62,7 +61,6 @@ export const ChattingPage = () => {
     };
     if (scrolldiv.current)
       scrollToBottom(scrolldiv.current as unknown as RefObject<HTMLDivElement>);
-    console.log(scrolldiv.current);
   });
 
   useEffect(() => {
@@ -81,13 +79,15 @@ export const ChattingPage = () => {
 
   return (
     <div className="chattingpage">
-      <div className="top-header">
-        <div className="user-header">
+      <div className="flex items-center justify-between p-[15px] border border-[#f0eff5]">
+        <div className="flex items-center">
           <Avatar src={isGroupChat ? "" : pic} />
-          <p className="user-name">{isGroupChat ? chatName : name}</p>
+          <p className="text-cont-gray font-semibold ml-[15px]">
+            {isGroupChat ? chatName : name}
+          </p>
         </div>
         <div>
-          <div className="user-fet">
+          <div className="text-icon-gray flex items-center justify-between gap-5 mr-5">
             <SearchIcon />
             <CallIcon />
             <VideoCallIcon />
@@ -100,11 +100,15 @@ export const ChattingPage = () => {
           <div
             key={index}
             className={
-              el.sender._id != user._id ? "rihgtuser-chat" : "leftuser-chat"
+              el.sender._id != user._id ? "flex" : "flex flex-row-reverse"
             }
           >
             <div
-              className={el.sender._id != user._id ? "right-avt" : "left-avt"}
+              className={
+                el.sender._id != user._id
+                  ? "flex flex-row-reverse items-center gap-2.5"
+                  : "flex items-center gap-2.5"
+              }
             >
               <div className={ChatlogicStyling(el.sender._id, user._id)}>
                 <p>{el.content}</p>
@@ -119,14 +123,14 @@ export const ChattingPage = () => {
                   src={el.sender._id != user._id ? el.sender.pic : user.pic}
                 />
               ) : (
-                <div className="blank-div"></div>
+                <div className="m-5"></div>
               )}
             </div>
           </div>
         ))}
       </div>
-      <div className="sender-cont">
-        <InputContWithEmog id={_id} token={token} socket={socket} />
+      <div className="flex border-t border-t-[#f0eff5] items-center pt-[15px]">
+        <InputContWithEmog id={_id!} token={token} socket={socket} />
       </div>
     </div>
   );
@@ -143,6 +147,7 @@ const ColorButton = styled(Button)(() => ({
     backgroundColor: "#3a45c3",
   },
 }));
+
 function InputContWithEmog({
   id,
   token,
@@ -183,7 +188,7 @@ function InputContWithEmog({
 
   return (
     <>
-      <div className="search-cont send-message">
+      <div className="search-cont max-h-9 mt-0">
         <InputEmoji
           value={text}
           onChange={setText}

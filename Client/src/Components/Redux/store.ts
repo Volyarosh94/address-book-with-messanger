@@ -1,11 +1,15 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import {
+  Middleware,
+  configureStore,
+  getDefaultMiddleware,
+} from "@reduxjs/toolkit";
 import { authReducer } from "./Auth/reducer";
-import { chattingReducer } from "./Chatting/Reducer";
+import { chattingReducer } from "./Chatting/reducer";
 import { notyficationReducer } from "./Notification/reducer";
 import { recentChatReducer } from "./RecentChat/reducer";
 import { serachReducer } from "./Searching/reducer";
 
-const loggerMiddleware = (store) => (next) => (action) => {
+const loggerMiddleware: Middleware = (store) => (next) => (action) => {
   if (typeof action === "function") {
     return action(store.dispatch);
   }

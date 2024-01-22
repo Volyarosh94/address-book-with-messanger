@@ -15,7 +15,7 @@ export const HomeComp = () => {
   return (
     <>
       <MyChat />
-      {chatting._id ? <ChattingPage /> : <MessageStarter {...user} />}
+      {chatting?._id ? <ChattingPage /> : <MessageStarter {...user} />}
     </>
   );
 };
@@ -28,11 +28,13 @@ export const MessageStarter = ({
   name: string;
 }) => {
   return (
-    <div className="chattingpage start-msg">
-      <div>
+    <div className="chattingpage flex items-center justify-center">
+      <div className="flex items-center flex-col">
         <Avatar src={pic} sx={{ width: 70, height: 70 }} />
         <h3>Welcome, {name}</h3>
-        <p>Please select a chat to start messaging.</p>
+        <p className="text-[#7a7f9a] m-0">
+          Please select a chat to start messaging.
+        </p>
       </div>
     </div>
   );

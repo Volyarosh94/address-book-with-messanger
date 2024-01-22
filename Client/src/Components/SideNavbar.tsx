@@ -40,8 +40,8 @@ export default function SideNavbar() {
       <div>
         <Avatar src={user.pic} />
       </div>
-      <div className="icons-wrapper">
-        <div className="mid-icon">
+      <div className="h-full flex flex-col justif-between">
+        <div className="h-[35%] text-icon-gray">
           <LightTooltip title="Profile" placement="top">
             <AccountCircleOutlinedIcon />
           </LightTooltip>
@@ -62,7 +62,7 @@ export default function SideNavbar() {
             <SettingsOutlinedIcon />
           </LightTooltip>
         </div>
-        <div className="bottom-icon">
+        <div className="h-[10%] text-icon-gray">
           <LanguageOutlinedIcon />
           <LightTooltip placement="top" title="Dark/Light Mode">
             <DarkModeOutlinedIcon />

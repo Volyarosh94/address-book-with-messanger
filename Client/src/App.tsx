@@ -5,7 +5,7 @@ import SideNavbar from "./Components/SideNavbar";
 function App() {
   return (
     <>
-      <div className="home-cont">
+      <div className="flex">
         <SideNavbar />
         <AllRoutes />
       </div>

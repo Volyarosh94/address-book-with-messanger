@@ -32,9 +32,11 @@ export const LoginComp = () => {
   }
 
   return (
-    <div className="auth-cont">
+    <div className="absolute top-[50%] left-[50%] -translate-x-2/4 -translate-y-2/4 min-w-120 bg-login-bg-gray rounded-md text-login-text-gray">
       <div>
-        <h2 className="auth-heading">Welcome back!</h2>
+        <h2 className="text-white text-center text-3xl leading-loose">
+          Welcome back!
+        </h2>
         <div className="details-cont">
           <p>Email</p>
           <input name="email" onChange={handleChange} className="inputcom" />

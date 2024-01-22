@@ -1,4 +1,4 @@
-import { Message } from "../Chatting/Reducer";
+import { Message } from "../Chatting/reducer";
 import { ADD_UNSEEN_MSG, REMOVE_SEEN_MSG } from "./action";
 
 interface InitialState {
@@ -12,23 +12,23 @@ const initState: InitialState = {
 };
 
 type ActionPayloadType =
-  | { type: "ADD_UNSEEN_MSG"; payload: Message }
-  | { type: "REMOVE_SEEN_MSG"; payload: Message[] };
+  | { type: typeof ADD_UNSEEN_MSG; payload: Message }
+  | { type: typeof REMOVE_SEEN_MSG; payload: Message[] };
 
 export const notyficationReducer = (
-  store = initState,
+  state = initState,
   { type, payload }: ActionPayloadType
-) => {
+): InitialState => {
   switch (type) {
     case ADD_UNSEEN_MSG:
       return {
-        ...store,
-        unseenmsg: [payload, ...store.unseenmsg],
-        notification: store.notification + 1,
+        ...state,
+        unseenmsg: [payload, ...state.unseenmsg],
+        notification: state.notification + 1,
       };
     case REMOVE_SEEN_MSG:
-      return { ...store, notification: payload.length, unseenmsg: payload };
+      return { ...state, notification: payload.length, unseenmsg: payload };
     default:
-      return store;
+      return state;
   }
 };

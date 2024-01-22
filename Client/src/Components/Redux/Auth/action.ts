@@ -1,4 +1,5 @@
 import { Dispatch } from "redux";
+import { User } from "./reducer";
 
 export const AUTH_USER = "AUTH_USER";
 export const AUTH_LOADING = "AUTH_LOADING";
@@ -6,10 +7,22 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGOUT = "LOGOUT";
 export const UPLOAD_PIC = "UPLOAD_PIC";
 
-export const actionPic = (payload: string) => ({ type: UPLOAD_PIC, payload });
-export const authUser = (payload) => ({ type: AUTH_USER, payload });
-export const authLoading = (payload) => ({ type: AUTH_LOADING, payload });
-export const authError = (payload) => ({ type: AUTH_ERROR, payload });
+export const actionPic = (payload: string) => ({
+  type: UPLOAD_PIC,
+  payload,
+});
+export const authUser = (payload: { token: string; user: User }) => ({
+  type: AUTH_USER,
+  payload,
+});
+export const authLoading = (payload: boolean) => ({
+  type: AUTH_LOADING,
+  payload,
+});
+export const authError = (payload: boolean) => ({
+  type: AUTH_ERROR,
+  payload,
+});
 export const authLogout = () => ({ type: LOGOUT, payload: {} });
 
 interface Props {
@@ -35,14 +48,14 @@ export const authRegister =
       let data = await res.json();
       localStorage.setItem("userInfo", JSON.stringify(data));
       dispatch(authUser(data));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(authLoading(false));
       dispatch(authError(true));
       console.log(err.message);
     }
   };
 
-export const uploadPic = (pic) => async (dispatch: Dispatch) => {
+export const uploadPic = (pic: string) => async (dispatch: Dispatch) => {
   dispatch(authLoading(true));
   try {
     const url = `https://api.cloudinary.com/v1_1/yasherosion/image/upload`;
@@ -56,7 +69,7 @@ export const uploadPic = (pic) => async (dispatch: Dispatch) => {
     });
     let data = await res.json();
     dispatch(actionPic(data.secure_url));
-  } catch (error) {
+  } catch (error: any) {
     dispatch(authLoading(false));
     dispatch(authError(true));
     console.log(error.message);

@@ -1,24 +1,19 @@
+import { User } from "../Auth/reducer";
+import { Message } from "../Chatting/reducer";
 import {
+  RECENT_LOADING,
+  RECENT_ERROR,
   ADD_RECENT_CHAT,
   NEW_CREATED_CHAT,
-  RECENT_ERROR,
-  RECENT_LOADING,
 } from "./action";
-
-export interface Person {
-  _id: string;
-  name: string;
-  email: string;
-  pic: string;
-  isAdmin: boolean;
-}
 
 export interface Chat {
   _id: string;
   chatName: string;
   isGroupChat: boolean;
-  users: Person[];
-  groupAdmin: Person;
+  users: User[];
+  latestMessage: Message;
+  groupAdmin: User;
   createdAt: string;
   updatedAt: string;
 }
@@ -36,37 +31,40 @@ const initState: InitialState = {
 };
 
 type ActionPayloadType =
-  | { type: "ADD_RECENT_CHAT"; payload: Chat[] }
+  | { type: typeof ADD_RECENT_CHAT; payload: Chat[] }
   | {
-      type: "NEW_CREATED_CHAT";
+      type: typeof NEW_CREATED_CHAT;
       payload: Chat[];
     }
-  | { type: "RECENT_ERROR" | "RECENT_LOADING"; payload: boolean };
+  | {
+      type: typeof RECENT_ERROR | typeof RECENT_LOADING;
+      payload: boolean;
+    };
 
 export const recentChatReducer = (
-  store = initState,
+  state = initState,
   { type, payload }: ActionPayloadType
-) => {
+): InitialState => {
   switch (type) {
     case ADD_RECENT_CHAT:
       return {
-        ...store,
+        ...state,
         recent_chat: payload,
         loading: false,
         error: false,
       };
     case NEW_CREATED_CHAT:
       return {
-        ...store,
-        recent_chat: [...payload, ...store.recent_chat],
+        ...state,
+        recent_chat: [...payload, ...state.recent_chat],
         loading: false,
         error: false,
       };
     case RECENT_ERROR:
-      return { ...store, error: payload };
+      return { ...state, error: payload };
     case RECENT_LOADING:
-      return { ...store, loading: payload };
+      return { ...state, loading: payload };
     default:
-      return store;
+      return state;
   }
 };

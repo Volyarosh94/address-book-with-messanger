@@ -1,5 +1,5 @@
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
-import { User } from "./reducer";
+import { User } from "../Auth/reducer";
 import { RootState } from "../store";
 
 export const SEARCH_LOADING = "SEARCH_LOADING";

@@ -1,73 +1,81 @@
+import { User } from "../Auth/reducer";
+import { Chat } from "../RecentChat/reducer";
 import {
-  ADD_MESSAGE,
-  MESSAGE_ERROR,
-  MESSAGE_LOADING,
   SELECT_CHAT,
+  ADD_MESSAGE,
+  MESSAGE_LOADING,
+  MESSAGE_ERROR,
   SEND_MESSAGE,
 } from "./action";
 
 export interface Message {
   _id: string;
-  sender: {
-    _id: string;
-    name: string;
-    pic: string;
-  };
+  sender: User;
   content: string;
-  chat: any;
-  readBy: any[];
+  chat: Chat;
+  readBy: User[];
   createdAt: string;
   updatedAt: string;
 }
 
+export interface SelectChat {
+  isGroupChat: boolean;
+  index: number;
+  user: User;
+  _id: string;
+  chatName: string;
+}
 interface InitialState {
-  chatting: any;
+  chatting: SelectChat | null;
   messages: Message[];
   loading: boolean;
   error: boolean;
 }
 
 const initState: InitialState = {
-  chatting: {},
+  chatting: null,
   messages: [],
   loading: false,
   error: false,
 };
 
-type ActionPayloadType =
-  | { type: "SELECT_CHAT"; payload: any }
+export type ActionPayloadType =
+  | { type: typeof SELECT_CHAT; payload: SelectChat }
   | {
-      type: "SEND_MESSAGE" | "ADD_MESSAGE";
+      type: typeof SEND_MESSAGE | typeof ADD_MESSAGE;
       payload: Message;
     }
-  | { type: "MESSAGE_LOADING" | "MESSAGE_ERROR"; payload: boolean };
+  | {
+      type: typeof MESSAGE_LOADING | typeof MESSAGE_ERROR;
+      payload: boolean;
+    };
 
 export const chattingReducer = (
-  store = initState,
+  state = initState,
   { type, payload }: ActionPayloadType
-) => {
+): InitialState => {
   switch (type) {
     case SELECT_CHAT:
       return {
-        ...store,
+        ...state,
         chatting: payload,
         loading: false,
         error: false,
       };
     case SEND_MESSAGE:
       return {
-        ...store,
-        messages: [...store.messages, payload],
+        ...state,
+        messages: [...state.messages, payload],
         loading: false,
         error: false,
       };
     case ADD_MESSAGE:
-      return { ...store, messages: [payload], loading: false, error: false };
+      return { ...state, messages: [payload], loading: false, error: false };
     case MESSAGE_LOADING:
-      return { ...store, loading: payload };
+      return { ...state, loading: payload };
     case MESSAGE_ERROR:
-      return { ...store, error: payload };
+      return { ...state, error: payload };
     default:
-      return store;
+      return state;
   }
 };

@@ -1,5 +1,4 @@
-declare module "react-winjs";
-
 declare module "*.png" {
-  import * as React from "react";
+  const value: string;
+  export default value;
 }

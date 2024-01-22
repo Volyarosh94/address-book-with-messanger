@@ -1,7 +1,6 @@
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 import { Socket } from "socket.io-client";
-import { Message } from "./Reducer";
-import { Action } from "redux";
+import { Message, SelectChat } from "./reducer";
 import { Dispatch } from "react";
 
 export const SELECT_CHAT = "SELECT_CHAT";
@@ -10,10 +9,22 @@ export const MESSAGE_LOADING = "MESSAGE_LOADING";
 export const MESSAGE_ERROR = "MESSAGE_ERROR";
 export const SEND_MESSAGE = "SEND_MESSAGE";
 
-export const selectChat = (payload) => ({ type: SELECT_CHAT, payload });
-export const addMessage = (payload) => ({ type: ADD_MESSAGE, payload });
-export const messageLoading = (payload) => ({ type: MESSAGE_LOADING, payload });
-export const messageError = (payload) => ({ type: MESSAGE_ERROR, payload });
+export const selectChat = (payload: SelectChat) => ({
+  type: SELECT_CHAT,
+  payload,
+});
+export const addMessage = (payload: Message) => ({
+  type: ADD_MESSAGE,
+  payload,
+});
+export const messageLoading = (payload: boolean) => ({
+  type: MESSAGE_LOADING,
+  payload,
+});
+export const messageError = (payload: boolean) => ({
+  type: MESSAGE_ERROR,
+  payload,
+});
 export const sendMessage = (payload: Message) => ({
   type: SEND_MESSAGE,
   payload,
@@ -66,7 +77,6 @@ export const sendMessageApi = ((
           Authorization: `Bearer ${token}`,
         },
       });
-
       let data = await res.json();
       socket.emit("new message", data);
       dispatch(sendMessage(data));

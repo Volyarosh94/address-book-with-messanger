@@ -1,4 +1,4 @@
-.auth-cont {
+/* .auth-cont {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -13,8 +13,7 @@
   color: white;
   text-align: center;
   font-size: 1.8rem;
-  /* border: 2px solid red; */
-}
+} */
 .inputcom {
   background-color: #202225;
   width: 90%;
@@ -25,7 +24,7 @@
   font-size: 17px;
 }
 
-#photo {
+/* #photo {
   border-radius: 50%;
   width: 110px;
   height: 110px;
@@ -41,7 +40,7 @@
 
 #file {
   display: none;
-}
+} */
 .details-cont {
   display: flex;
   flex-direction: column;
@@ -70,7 +69,7 @@
 .contract span {
   color: #099bd6;
 }
-.profile-text {
+/* .profile-text {
   text-align: center;
   margin-top: 0px;
-}
+} */

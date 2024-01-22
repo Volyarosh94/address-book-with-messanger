@@ -11,8 +11,9 @@ import { selectChat } from "./Redux/Chatting/action";
 import { removeSeenMsg } from "./Redux/Notification/action";
 import { useAppDispatch, useAppSelector } from "./Redux/hooks";
 import { Action } from "redux";
-import { User } from "./Redux/Searching/reducer";
-import { Chat, Person } from "./Redux/RecentChat/reducer";
+import { User } from "./Redux/Auth/reducer";
+import { Chat } from "./Redux/RecentChat/reducer";
+import { Message } from "./Redux/Chatting/reducer";
 
 export const MyChat = () => {
   const [search, setSearch] = useState(false);
@@ -28,6 +29,7 @@ export const MyChat = () => {
     (store) => store.notification
   );
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (token) dispatch(makeRecentChatApi(token) as unknown as Action);
   }, [user]);
@@ -48,10 +50,10 @@ export const MyChat = () => {
   };
 
   return (
-    <div className="mychat-cont">
+    <div className="w-[26%] h-screen min-w-[270px] bg-[#f5f7fb] text-cont-gray">
       <div className="py-5">
-        <div className="notification">
-          <h2>Chats</h2>
+        <div className="flex items-center m-auto justify-between w-[80%]">
+          <h2 className="text-cont-gray font-semibold">Chats</h2>
           {/* <NotificationsIcon /> */}
           <Badge badgeContent={notification} color="error">
             <Notificationcomp />
@@ -67,8 +69,8 @@ export const MyChat = () => {
           />
         </div>
       </div>
-      <div className="recent-chat">
-        <p className="Recent">Recent</p>
+      <div className="w-full m-auto">
+        <p className="text-cont-gray font-semibold ml-5">Recent</p>
         <div className="recent-user">
           {search
             ? search_result.map((el: User) => (
@@ -81,6 +83,7 @@ export const MyChat = () => {
                 />
               ))
             : !chat_loading &&
+              chatting &&
               recent_chat.map((el, index: number) => (
                 <ChatUserComp
                   key={el._id}
@@ -148,10 +151,10 @@ interface ChatUserComp {
   id: string;
   chatName: string;
   chattingwith: string;
-  latestMessage?: any;
+  latestMessage?: Message;
   isGroupChat: boolean;
-  users: Person[];
-  groupAdmin: Person;
+  users: User[];
+  groupAdmin: User;
   createdAt: string;
   updatedAt: string;
 }
@@ -167,16 +170,19 @@ const ChatUserComp = ({
   chattingwith,
 }: ChatUserComp) => {
   const dispatch = useDispatch();
+  const user = users.find((el) => el._id != id);
   const handleSelectChat = () => {
-    dispatch(
-      selectChat({
-        isGroupChat,
-        index,
-        user: users.find((el) => el._id != id),
-        _id,
-        chatName,
-      })
-    );
+    if (user) {
+      dispatch(
+        selectChat({
+          isGroupChat,
+          index,
+          user: user,
+          _id,
+          chatName,
+        })
+      );
+    }
   };
   return (
     <div
@@ -226,8 +232,8 @@ interface SearchUserCompProps {
   name: string;
   pic: string;
   token?: string;
-  recent_chat?: any;
-  setSearch?: any;
+  recent_chat?: Chat[];
+  setSearch?: (value: boolean) => void;
 }
 
 export const SearchUserComp = ({
@@ -241,8 +247,8 @@ export const SearchUserComp = ({
 }: SearchUserCompProps) => {
   const dispatch = useAppDispatch();
   const handleSubmitForAcceChat = () => {
-    dispatch(accessChat(_id, token, recent_chat) as unknown as Action);
-    setSearch(false);
+    dispatch(accessChat(_id, token!, recent_chat!) as unknown as Action);
+    if (setSearch) setSearch(false);
   };
   return (
     <div onClick={handleSubmitForAcceChat} className="user">

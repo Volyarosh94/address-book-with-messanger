@@ -19,7 +19,7 @@ import MuiAlert from "@mui/material/Alert";
 import { makeNewGroup } from "./Redux/RecentChat/action";
 import { useAppDispatch, useAppSelector } from "./Redux/hooks";
 import { Action } from "redux";
-import { User } from "./Redux/Searching/reducer";
+import { User } from "./Redux/Auth/reducer";
 import { AlertProps as MuiAlertProps } from "@mui/material/Alert";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -191,7 +191,7 @@ export default function CustomizedDialogs() {
           />
           <div className="group-people-cont">
             {selectedUsers.map((el) => (
-              <div key={el._id} className="group-people">
+              <div key={el._id} className="flex items-center gap-2.5">
                 <p>{el.name}</p>{" "}
                 <CloseIcon
                   onClick={() => {

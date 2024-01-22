@@ -1,11 +1,10 @@
 import "./auth.css";
-import avatar from "./profileimg.png";
+import Avatar from "./profileimg.png";
 import { ChangeEvent, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { Link, Navigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useDispatch, useSelector } from "react-redux";
 import { authRegister, uploadPic } from "../../Components/Redux/Auth/action";
 import { Action } from "redux";
 import { useAppDispatch, useAppSelector } from "../../Components/Redux/hooks";
@@ -34,7 +33,7 @@ export const RegisterComp = () => {
     // const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      dispatch(uploadPic(reader.result) as unknown as Action);
+      dispatch(uploadPic(reader.result as string) as unknown as Action);
       // setPic(reader.result);
     };
     const fileUrl = URL.createObjectURL(file as Blob);
@@ -54,17 +53,29 @@ export const RegisterComp = () => {
   }
 
   return (
-    <div className="auth-cont">
+    <div className="absolute top-[50%] left-[50%] -translate-x-2/4 -translate-y-2/4 min-w-120 bg-login-bg-gray rounded-md text-login-text-gray">
       <div>
-        <h2 className="auth-heading">Create an account</h2>
+        <h2 className="text-white text-center text-3xl leading-loose">
+          Create an account
+        </h2>
         <div>
-          <div className="profile-pic">
-            <input onChange={handleInputFile} type="file" name="" id="file" />
+          <div className="relative rounded-full overflow-hidden w-[23%] m-auto">
+            <input
+              onChange={handleInputFile}
+              type="file"
+              name=""
+              id="file"
+              className="hidden"
+            />
             <label htmlFor="file" id="uploadBtn">
-              <img id="photo" src={user.pic ? user.pic : avatar} />
+              <img
+                id="photo"
+                src={user.pic ? user.pic : Avatar}
+                className="rounded-full w-[110px] h-[110px] cursor-pointer"
+              />
             </label>
           </div>
-          <p className="profile-text">Choose Profile</p>
+          <p className="text-center mt-0">Choose Profile</p>
         </div>
         <div className="details-cont">
           <p>Name</p>
