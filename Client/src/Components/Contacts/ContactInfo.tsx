@@ -39,9 +39,9 @@ export const ContactInfo = ({
   const isMobile = window.screen.width < 800;
 
   const handlePhoneClick = (phone: string) => {
-    // if (isMobile) return;
-    // setIsDialOpen(true);
-    // setSelectedPhone(phone);
+    if (isMobile) return;
+    setIsDialOpen(true);
+    setSelectedPhone(phone);
   };
 
   const handleCallClick = (phone: string) => {
