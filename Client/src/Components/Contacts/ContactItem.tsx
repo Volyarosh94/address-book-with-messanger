@@ -5,6 +5,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Contact } from "../../pages/Contacts";
 import { ProfilePicture } from "../ProfilePicture";
 import { CustomCheckbox } from "../Checkbox";
+import { useMediaQuery } from "usehooks-ts";
 
 interface Props {
   person: Contact;
@@ -26,8 +27,10 @@ export const ContactItem = ({
   const [isChecked, setIsChecked] = useState(false);
   const navigate = useNavigate();
 
+  const isMobile = useMediaQuery("(max-width: 799px)");
+
   const handleSelect = (person: Contact) => {
-    if (window.screen.width < 800 && !checkListShow) {
+    if (isMobile && !checkListShow) {
       navigate("/contact-info", { state: { person } });
       return;
     }

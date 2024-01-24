@@ -4,6 +4,7 @@ import { ContactInfo } from "../Components/Contacts/ContactInfo";
 import { ToolBar } from "../Components/Contacts/ToolBar";
 import { people } from "../FakeData";
 import { sorter } from "../utils";
+import { useMediaQuery } from "usehooks-ts";
 
 export interface Contact {
   id: number;
@@ -24,7 +25,7 @@ export const Contacts = () => {
   const [contactsList, setContactsList] = useState<Contact[]>(peopleList);
 
   const getFirstLetter = (name: string) => name.charAt(0).toUpperCase();
-  const screenWidth = window.screen.width;
+  const isMobile = useMediaQuery("(max-width: 800px)");
 
   return (
     <>
@@ -32,7 +33,7 @@ export const Contacts = () => {
         <div className="w-full h-full flex bg-white">
           <div
             className={`${
-              screenWidth < 800 && selectedContact ? "hidden" : "flex"
+              isMobile && selectedContact ? "hidden" : "flex"
             } w-full customMd:w-80 flex-col bg-bg-gray`}
           >
             <ToolBar

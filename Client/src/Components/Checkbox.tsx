@@ -1,7 +1,13 @@
 export const CustomCheckbox = ({ isChecked }: { isChecked: boolean }) => {
   return (
     <label className="inline-flex items-center">
-      <input type="checkbox" readOnly checked={isChecked} className="hidden" />
+      <input
+        type="checkbox"
+        name="checkbox"
+        readOnly
+        checked={isChecked}
+        className="hidden"
+      />
       <div className="relative w-5 h-5 border-2 border-black bg-transparent">
         {isChecked && (
           <svg

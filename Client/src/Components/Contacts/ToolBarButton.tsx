@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { Button } from "../Button";
+import { useMediaQuery } from "usehooks-ts";
 
 interface Props {
   icon: ReactNode;
@@ -15,6 +16,8 @@ export const ToolBarButton = ({
   moreSelectOpen,
   checkListShow,
 }: Props) => {
+  const isMobile = useMediaQuery("(max-width: 799px)");
+
   return (
     <>
       {text !== "Link" && (
@@ -29,7 +32,7 @@ export const ToolBarButton = ({
           )}
         </motion.div>
       )}
-      {window.screen.width < 800 && text === "Link" && (
+      {isMobile && text === "Link" && (
         <motion.div
           layout
           className="w-[68px] h-[52px] relative flex flex-col justify-center items-center hover:bg-dark-gray"
@@ -40,7 +43,7 @@ export const ToolBarButton = ({
           )}
         </motion.div>
       )}
-      {!checkListShow && window.screen.width >= 800 && text === "Link" && (
+      {!checkListShow && !isMobile && text === "Link" && (
         <motion.div
           layout
           initial={{ opacity: 0 }}

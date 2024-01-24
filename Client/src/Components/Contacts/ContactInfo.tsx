@@ -10,6 +10,7 @@ import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import { Contact } from "../../pages/Contacts";
 import { ProfilePicture } from "../ProfilePicture";
 import { DialPad } from "../Dialpad/Dialpad";
+import { useMediaQuery } from "usehooks-ts";
 
 const InfoItem = ({
   icon,
@@ -36,7 +37,7 @@ export const ContactInfo = ({
   const [isDialOpen, setIsDialOpen] = useState(false);
   const [selectedPhone, setSelectedPhone] = useState("");
 
-  const isMobile = window.screen.width < 800;
+  const isMobile = useMediaQuery("(max-width: 799px)");
 
   const handlePhoneClick = (phone: string) => {
     if (isMobile) return;
@@ -73,7 +74,7 @@ export const ContactInfo = ({
           <div className="flex flex-col">
             <Link
               className="link"
-              to={`${isMobile ? `tel:${mobilePhone}}` : ""}`}
+              to={`${isMobile ? `tel:${mobilePhone}` : ""}`}
               onClick={() => handlePhoneClick(mobilePhone)}
             >
               Call mobile
@@ -85,7 +86,7 @@ export const ContactInfo = ({
           <div className="flex flex-col">
             <Link
               className="link"
-              to={`${isMobile ? `tel:${workPhone}}` : ""}`}
+              to={`${isMobile ? `tel:${workPhone}` : ""}`}
               onClick={() => handlePhoneClick(workPhone)}
             >
               Call work

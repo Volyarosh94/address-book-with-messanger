@@ -18,6 +18,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Contact } from "../../pages/Contacts";
 import { Button } from "../Button";
 import { ToolBarButton } from "./ToolBarButton";
+import { useMediaQuery } from "usehooks-ts";
 
 interface Props {
   checkedContacts: Contact[];
@@ -57,12 +58,13 @@ export const ToolBar = ({
   const [secondArrState, setSecondArrState] = useState<ButtonElement[]>([]);
 
   const screenWidthRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMediaQuery("(max-width: 799px)");
 
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.screen.width;
       const blockWidth = screenWidthRef.current?.clientWidth;
-      if (blockWidth && screenWidth < 800 && screenWidth <= blockWidth + 70) {
+      if (blockWidth && isMobile && screenWidth <= blockWidth + 70) {
         setSecondArrState((prev) => {
           return [arrState[0], ...prev];
         });
@@ -72,7 +74,7 @@ export const ToolBar = ({
         });
       } else if (
         blockWidth &&
-        screenWidth < 800 &&
+        isMobile &&
         screenWidth - (blockWidth + 70) > 68 &&
         arrState.length < 5
       ) {
@@ -112,8 +114,7 @@ export const ToolBar = ({
       setCheckListShow(true);
     }
   };
-
-  if (window.screen.width < 800 && selectedContact) return <></>;
+  if (isMobile && selectedContact) return <></>;
 
   return (
     <motion.div
@@ -187,10 +188,10 @@ export const ToolBar = ({
               exit={{ opacity: 0, top: "20px" }}
               transition={{ duration: 0.1 }}
               className={`absolute right-0 w-[150px] flex bg-main-gray ${
-                window.screen.width < 800 ? "flex-col-reverse" : "flex-col"
+                isMobile ? "flex-col-reverse" : "flex-col"
               }`}
             >
-              {window.screen.width < 800 &&
+              {isMobile &&
                 secondArrState.map((elem) =>
                   moreSelectOpen && elem.text === "Link" ? (
                     <div key={elem.text} className="selectItem">
@@ -202,7 +203,7 @@ export const ToolBar = ({
                     </div>
                   )
                 )}
-              {window.screen.width > 800 && (
+              {!isMobile && (
                 <>
                   <div className="selectItem">Edit</div>
                   <div className="selectItem">Favorite</div>

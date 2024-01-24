@@ -50,9 +50,7 @@ export default function SideNavbar() {
               <ChatOutlinedIcon />
             </Link>
           </LightTooltip>
-          <LightTooltip placement="top" title="Groups">
-            <CustomizedDialogs />
-          </LightTooltip>
+          <CustomizedDialogs />
           <LightTooltip placement="top" title="Contacts">
             <Link to={"/contacts"}>
               <AssignmentIndOutlinedIcon />
@@ -75,12 +73,14 @@ export default function SideNavbar() {
 
 export const LightTooltip = styled(
   ({ children, className, title, ...props }: IToolTip) => (
-    <Tooltip
-      children={children}
-      title={title}
-      {...props}
-      classes={{ popper: className }}
-    />
+    <div className="flex justify-center items-center">
+      <Tooltip
+        children={children}
+        title={title}
+        {...props}
+        classes={{ popper: className }}
+      />
+    </div>
   )
 )(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
