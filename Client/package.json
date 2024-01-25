@@ -13,6 +13,7 @@
     "@mui/icons-material": "^5.15.4",
     "@mui/material": "^5.15.4",
     "@reduxjs/toolkit": "^1.8.1",
+    "dayschedule-widget": "^1.1.9",
     "framer-motion": "^10.18.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

@@ -2,6 +2,7 @@ import Avatar from "@mui/material/Avatar";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
@@ -11,6 +12,8 @@ import CustomizedDialogs from "./GroupMode";
 import { useAppSelector } from "./Redux/hooks";
 import { Link } from "react-router-dom";
 import { ReactElement } from "react";
+import "dayschedule-widget/dist/dayschedule-popup.css";
+import "dayschedule-widget/dist/dayschedule-widget.js";
 
 interface IToolTip {
   children: ReactElement<any, any>;
@@ -35,13 +38,23 @@ interface IToolTip {
 export default function SideNavbar() {
   const { user, loading, error } = useAppSelector((store) => store.user);
 
+  const openScheduler = () => {
+    daySchedule.initPopupWidget({
+      url: "https://meet.dayschedule.com",
+      color: {
+        primary: "#080808",
+        secondary: "#e0e0e0",
+      },
+    });
+  };
+
   return (
     <div className="side-nav">
       <div>
         <Avatar src={user.pic} />
       </div>
       <div className="h-full flex flex-col justif-between">
-        <div className="h-[35%] text-icon-gray">
+        <div className="h-[40%] text-icon-gray">
           <LightTooltip title="Profile" placement="top">
             <AccountCircleOutlinedIcon />
           </LightTooltip>
@@ -55,6 +68,9 @@ export default function SideNavbar() {
             <Link to={"/contacts"}>
               <AssignmentIndOutlinedIcon />
             </Link>
+          </LightTooltip>
+          <LightTooltip placement="top" title="Schedule a meeting">
+            <CalendarMonthOutlinedIcon onClick={openScheduler} />
           </LightTooltip>
           <LightTooltip placement="top" title="Settings">
             <SettingsOutlinedIcon />
