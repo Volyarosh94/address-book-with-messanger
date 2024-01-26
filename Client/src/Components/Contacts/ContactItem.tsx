@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useMediaQuery } from "usehooks-ts";
 import PersonIcon from "@mui/icons-material/Person";
 import { Contact } from "../../pages/Contacts";
 import { ProfilePicture } from "../ProfilePicture";
 import { CustomCheckbox } from "../Checkbox";
-import { useMediaQuery } from "usehooks-ts";
 
 interface Props {
   person: Contact;

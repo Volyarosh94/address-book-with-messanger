@@ -1,4 +1,8 @@
 import React, { ChangeEvent, ReactNode, useRef, useState } from "react";
+import { Action } from "redux";
+import { TextField } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps as MuiAlertProps } from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -6,21 +10,16 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
-import { LightTooltip } from "./SideNavbar";
 import { ColorButton } from "../pages/Auth/Login";
-import { TextField } from "@mui/material";
 import { makeSearchApi } from "./Redux/Searching/action";
-import { SearchUserComp } from "./MyChat";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import { makeNewGroup } from "./Redux/RecentChat/action";
-import { useAppDispatch, useAppSelector } from "./Redux/hooks";
-import { Action } from "redux";
 import { User } from "./Redux/Auth/reducer";
-import { AlertProps as MuiAlertProps } from "@mui/material/Alert";
+import { useAppDispatch, useAppSelector } from "./Redux/hooks";
+import { SearchUserComp } from "./MyChat";
+import { LightTooltip } from "./SideNavbar";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {

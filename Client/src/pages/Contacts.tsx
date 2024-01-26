@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
 import { ContactItem } from "../Components/Contacts/ContactItem";
 import { ContactInfo } from "../Components/Contacts/ContactInfo";
 import { ToolBar } from "../Components/Contacts/ToolBar";
 import { people } from "../FakeData";
 import { sorter } from "../utils";
-import { useMediaQuery } from "usehooks-ts";
 
 export interface Contact {
   id: number;

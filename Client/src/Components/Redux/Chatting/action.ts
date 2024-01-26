@@ -1,7 +1,7 @@
-import { DefaultEventsMap } from "@socket.io/component-emitter";
-import { Socket } from "socket.io-client";
-import { Message, SelectChat } from "./reducer";
 import { Dispatch } from "react";
+import { Socket } from "socket.io-client";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
+import { Message, SelectChat } from "./reducer";
 
 export const SELECT_CHAT = "SELECT_CHAT";
 export const ADD_MESSAGE = "ADD_MESSAGE";

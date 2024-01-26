@@ -1,5 +1,6 @@
 import { ReactNode, ReactElement, useState } from "react";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "usehooks-ts";
 import SvgIcon from "@mui/material/SvgIcon";
 import PersonIcon from "@mui/icons-material/Person";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
@@ -10,7 +11,6 @@ import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import { Contact } from "../../pages/Contacts";
 import { ProfilePicture } from "../ProfilePicture";
 import { DialPad } from "../Dialpad/Dialpad";
-import { useMediaQuery } from "usehooks-ts";
 
 const InfoItem = ({
   icon,

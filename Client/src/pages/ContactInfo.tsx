@@ -1,4 +1,5 @@
 import { ReactNode, ReactElement } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import SvgIcon from "@mui/material/SvgIcon";
 import PersonIcon from "@mui/icons-material/Person";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
@@ -8,7 +9,6 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import TransitEnterexitIcon from "@mui/icons-material/TransitEnterexit";
 import { ProfilePicture } from "../Components/ProfilePicture";
-import { useLocation, useNavigate } from "react-router-dom";
 
 const InfoItem = ({
   icon,

@@ -1,10 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import "react-phone-input-2/lib/style.css";
+import PI, { PhoneInputProps } from "react-phone-input-2";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import CallIcon from "@mui/icons-material/Call";
 import CallEndIcon from "@mui/icons-material/CallEnd";
-import PI, { PhoneInputProps } from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const PhoneInput: React.FC<PhoneInputProps> = (PI as any).default || PI;
 

@@ -1,4 +1,8 @@
+import { ReactElement } from "react";
+import { Link } from "react-router-dom";
+import styled from "@emotion/styled";
 import Avatar from "@mui/material/Avatar";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
@@ -6,12 +10,8 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import styled from "@emotion/styled";
-import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
-import CustomizedDialogs from "./GroupMode";
 import { useAppSelector } from "./Redux/hooks";
-import { Link } from "react-router-dom";
-import { ReactElement } from "react";
+import CustomizedDialogs from "./GroupMode";
 import "dayschedule-widget/dist/dayschedule-popup.css";
 import "dayschedule-widget/dist/dayschedule-widget.js";
 

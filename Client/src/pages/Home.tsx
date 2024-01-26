@@ -1,16 +1,11 @@
 import { Avatar } from "@mui/material";
-import { Navigate } from "react-router-dom";
+import { useAppSelector } from "../Components/Redux/hooks";
 import { ChattingPage } from "../Components/ChattingPage";
 import { MyChat } from "../Components/MyChat";
-import { useAppSelector } from "../Components/Redux/hooks";
 
 export const HomeComp = () => {
   const { user, loading, error } = useAppSelector((store) => store.user);
   const { chatting } = useAppSelector((store) => store.chatting);
-
-  if (!user._id) {
-    return <Navigate to="/login" />;
-  }
 
   return (
     <>

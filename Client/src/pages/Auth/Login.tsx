@@ -1,13 +1,13 @@
-import "./auth.css";
-import avatar from "./profileimg.png";
 import { ChangeEvent, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { Action } from "redux";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import { Link, Navigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import { authRegister } from "../../Components/Redux/Auth/action";
-import { Action } from "redux";
 import { useAppDispatch, useAppSelector } from "../../Components/Redux/hooks";
+import avatar from "./profileimg.png";
+import "./auth.css";
 
 export const LoginComp = () => {
   const { user, loading, error } = useAppSelector((store) => store.user);

@@ -1,12 +1,15 @@
+import { RefObject, useEffect, useRef, useState } from "react";
+import io, { Socket } from "socket.io-client";
+import { Action } from "redux";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
+import InputEmoji from "react-input-emoji";
 import { Avatar, Button } from "@mui/material";
+import styled from "@emotion/styled";
 import SearchIcon from "@mui/icons-material/Search";
 import CallIcon from "@mui/icons-material/Call";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import styled from "@emotion/styled";
 import SendIcon from "@mui/icons-material/Send";
-import InputEmoji from "react-input-emoji";
-import { RefObject, useEffect, useRef, useState } from "react";
 import { ChatlogicStyling, isSameSender } from "../utils";
 import {
   fetchCurrentMessages,
@@ -14,10 +17,7 @@ import {
 } from "./Redux/Chatting/action.js";
 import { sendMessage } from "./Redux/Chatting/action.js";
 import { addUnseenmsg } from "./Redux/Notification/action.js";
-import io, { Socket } from "socket.io-client";
-import { DefaultEventsMap } from "@socket.io/component-emitter";
 import { useAppDispatch, useAppSelector } from "./Redux/hooks.js";
-import { Action } from "redux";
 import { Message } from "./Redux/Chatting/reducer.js";
 
 const SERVER_POINT = "https://messanger-br6c.onrender.com";

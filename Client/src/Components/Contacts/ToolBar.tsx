@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useMediaQuery } from "usehooks-ts";
 import LinkIcon from "@mui/icons-material/Link";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import AddIcon from "@mui/icons-material/Add";
@@ -18,7 +19,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Contact } from "../../pages/Contacts";
 import { Button } from "../Button";
 import { ToolBarButton } from "./ToolBarButton";
-import { useMediaQuery } from "usehooks-ts";
 
 interface Props {
   checkedContacts: Contact[];

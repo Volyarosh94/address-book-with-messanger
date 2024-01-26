@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { Button } from "../Button";
 import { useMediaQuery } from "usehooks-ts";
+import { Button } from "../Button";
 
 interface Props {
   icon: ReactNode;
