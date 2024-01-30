@@ -49,13 +49,13 @@ body {
   border: none;
   background-color: inherit;
   width: 87%;
-  padding: 10px;
+  padding: 5px;
   font-size: 17px;
 }
 .recent-user {
   overflow-y: scroll;
   box-sizing: border-box;
-  height: 75vh;
+  height: 80vh;
 }
 .recent-user::-webkit-scrollbar {
   width: 10px;
@@ -69,7 +69,7 @@ body {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  height: 3.4rem;
+  height: 4rem;
   margin-top: 0px;
   padding: 11px 13px;
   margin: 0px 12px;
@@ -118,8 +118,8 @@ body {
 }
 .live-chat {
   padding: 20px;
-  max-height: 77%;
-  height: 77%;
+  max-height: 80%;
+  height: 80%;
   box-sizing: border-box;
   overflow-y: hidden;
   overflow: scroll;
@@ -137,7 +137,6 @@ body {
   overflow: auto;
 }
 .react-input-emoji--input {
-  max-height: 32px !important;
   box-sizing: border-box !important;
   overflow-y: auto !important;
 }

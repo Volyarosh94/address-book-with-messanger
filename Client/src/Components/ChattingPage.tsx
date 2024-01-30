@@ -29,12 +29,8 @@ export const ChattingPage = () => {
   const { messages } = useAppSelector((store) => store.chatting);
   const { unseenmsg } = useAppSelector((store) => store.notification);
   const { chatting } = useAppSelector((store) => store.chatting);
-  const {
-    isGroupChat,
-    chatName,
-    user: { pic, name },
-    _id,
-  } = chatting || { user: {} };
+  const { isGroupChat, chatName, _id } = chatting || {};
+  const { pic, name } = chatting.user || {};
   const dispatch = useAppDispatch();
   const scrolldiv = useRef<HTMLDivElement>(null);
 
@@ -51,16 +47,15 @@ export const ChattingPage = () => {
     if (!_id) return;
     dispatch(fetchCurrentMessages(_id, token, socket) as unknown as Action);
     currentChattingWith = _id;
-  }, [_id]);
+  }, [_id, messages.length]);
 
   useEffect(() => {
-    const scrollToBottom = (node: RefObject<HTMLDivElement>) => {
-      if (node.current) {
-        node.current.scrollTop = node.current.scrollHeight;
+    const scrollToBottom = (node: HTMLDivElement | null) => {
+      if (node) {
+        node.scrollTop = node.scrollHeight;
       }
     };
-    if (scrolldiv.current)
-      scrollToBottom(scrolldiv.current as unknown as RefObject<HTMLDivElement>);
+    scrollToBottom(scrolldiv.current);
   });
 
   useEffect(() => {
@@ -96,55 +91,59 @@ export const ChattingPage = () => {
         </div>
       </div>
       <div ref={scrolldiv} className="live-chat">
-        {messages.map((el: Message, index: number) => (
-          <div
-            key={index}
-            className={
-              el.sender._id != user._id ? "flex" : "flex flex-row-reverse"
-            }
-          >
+        {messages?.length > 0 &&
+          messages.map((el: Message, index: number) => (
             <div
+              key={index}
               className={
-                el.sender._id != user._id
-                  ? "flex flex-row-reverse items-center gap-2.5"
-                  : "flex items-center gap-2.5"
+                el.sender._id !== user._id ? "flex" : "flex flex-row-reverse"
               }
             >
-              <div className={ChatlogicStyling(el.sender._id, user._id)}>
-                <p>{el.content}</p>
-                <p className="time chat-time">
-                  {new Date(el.createdAt).getHours() +
-                    ":" +
-                    new Date(el.createdAt).getMinutes()}
-                </p>
+              <div
+                className={
+                  el.sender._id !== user._id
+                    ? "flex flex-row-reverse items-center gap-2.5"
+                    : "flex items-center gap-2.5"
+                }
+              >
+                <div className={ChatlogicStyling(el.sender._id, user._id)}>
+                  <p>{el.content}</p>
+                  <p className="time chat-time">
+                    {new Date(el.createdAt).getHours() +
+                      ":" +
+                      new Date(el.createdAt).getMinutes()}
+                  </p>
+                </div>
+                {isSameSender(messages, index) ? (
+                  <Avatar
+                    src={el.sender._id !== user._id ? el.sender.pic : user.pic}
+                  />
+                ) : (
+                  <div className="m-5"></div>
+                )}
               </div>
-              {isSameSender(messages, index) ? (
-                <Avatar
-                  src={el.sender._id != user._id ? el.sender.pic : user.pic}
-                />
-              ) : (
-                <div className="m-5"></div>
-              )}
             </div>
-          </div>
-        ))}
+          ))}
       </div>
-      <div className="flex border-t border-t-[#f0eff5] items-center pt-[15px]">
+      <div className="flex justify-center gap-x-2.5 border-t border-t-[#f0eff5] items-center pt-[15px]">
         <InputContWithEmog id={_id!} token={token} socket={socket} />
       </div>
     </div>
   );
 };
 
-const ColorButton = styled(Button)(() => ({
+const ColorButton = styled(Button)(({ theme }) => ({
   color: "white",
   fontSize: "20px",
   textTransform: "none",
   padding: "12px",
-  marginRight: "15px",
   backgroundColor: "#5865f2",
   "&:hover": {
     backgroundColor: "#3a45c3",
+  },
+  "& .MuiButton-endIcon": {
+    margin: 0,
+    marginRight: "-4px",
   },
 }));
 
@@ -188,7 +187,7 @@ function InputContWithEmog({
 
   return (
     <>
-      <div className="search-cont max-h-9 mt-0">
+      <div className="search-cont max-h-[46px] m-0 h-full">
         <InputEmoji
           value={text}
           onChange={setText}

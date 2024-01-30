@@ -53,7 +53,7 @@ export const MyChat = () => {
     <div className="w-[26%] h-screen min-w-[270px] bg-[#f5f7fb] text-cont-gray">
       <div className="py-5">
         <div className="flex items-center m-auto justify-between w-[80%]">
-          <h2 className="text-cont-gray font-semibold">Chats</h2>
+          <h2 className="text-cont-gray text-2xl font-semibold">Chats</h2>
           {/* <NotificationsIcon /> */}
           <Badge badgeContent={notification} color="error">
             <Notificationcomp />
@@ -70,7 +70,7 @@ export const MyChat = () => {
         </div>
       </div>
       <div className="w-full m-auto">
-        <p className="text-cont-gray font-semibold ml-5">Recent</p>
+        <p className="text-cont-gray font-semibold pl-5 pb-5">Recent</p>
         <div className="recent-user">
           {search
             ? search_result.map((el: User) => (

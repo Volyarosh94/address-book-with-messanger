@@ -13,7 +13,7 @@ export const selectChat = (payload: SelectChat) => ({
   type: SELECT_CHAT,
   payload,
 });
-export const addMessage = (payload: Message) => ({
+export const addMessage = (payload: Message[]) => ({
   type: ADD_MESSAGE,
   payload,
 });

@@ -26,14 +26,14 @@ export interface SelectChat {
   chatName: string;
 }
 interface InitialState {
-  chatting: SelectChat | null;
+  chatting: Partial<SelectChat>;
   messages: Message[];
   loading: boolean;
   error: boolean;
 }
 
 const initState: InitialState = {
-  chatting: null,
+  chatting: {},
   messages: [],
   loading: false,
   error: false,
@@ -41,10 +41,8 @@ const initState: InitialState = {
 
 export type ActionPayloadType =
   | { type: typeof SELECT_CHAT; payload: SelectChat }
-  | {
-      type: typeof SEND_MESSAGE | typeof ADD_MESSAGE;
-      payload: Message;
-    }
+  | { type: typeof SEND_MESSAGE; payload: Message }
+  | { type: typeof ADD_MESSAGE; payload: Message[] }
   | {
       type: typeof MESSAGE_LOADING | typeof MESSAGE_ERROR;
       payload: boolean;
@@ -70,7 +68,7 @@ export const chattingReducer = (
         error: false,
       };
     case ADD_MESSAGE:
-      return { ...state, messages: [payload], loading: false, error: false };
+      return { ...state, messages: payload, loading: false, error: false };
     case MESSAGE_LOADING:
       return { ...state, loading: payload };
     case MESSAGE_ERROR:
