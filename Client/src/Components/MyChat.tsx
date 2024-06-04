@@ -53,20 +53,22 @@ export const MyChat = () => {
 
 	return (
 		<div
-			className={`w-[26%] h-screen min-w-[270px] bg-[#f5f7fb] text-cont-gray ${
-				chatIsOpen ? "block" : "hidden"
-			} md:block`}
+			className={`md:w-[26%] h-screen bg-[#f5f7fb] text-cont-gray ${
+				chatIsOpen ? "chatFull" : "chatSmall"
+			} md:block md:min-w-[270px]`}
 		>
 			<div className="py-5">
 				<div className="flex items-center m-auto justify-between w-[80%]">
 					<h2 className="text-cont-gray text-2xl font-semibold">Chats</h2>
 					{/* <NotificationsIcon /> */}
-					<Badge badgeContent={notification} color="error">
-						<Notificationcomp />
-					</Badge>
+					<div className={`md:block ${chatIsOpen ? "" : "hidden"}`}>
+						<Badge badgeContent={notification} color="error">
+							<Notificationcomp />
+						</Badge>
+					</div>
 					{/* <AddIcon /> */}
 				</div>
-				<div className="search-cont">
+				<div className={`md:flex search-cont ${chatIsOpen ? "" : "hidden"}`}>
 					<SearchIcon />
 					<input
 						onChange={handleQuery}
@@ -175,6 +177,7 @@ const ChatUserComp = ({
 	index,
 	chattingwith,
 }: ChatUserComp) => {
+	const chatIsOpen = useAppSelector((store) => store.chatting.chatIsOpen);
 	const dispatch = useDispatch();
 	const user = users.find((el) => el._id != id);
 	const handleSelectChat = () => {
@@ -197,11 +200,11 @@ const ChatUserComp = ({
 		>
 			<div className="history-cont">
 				{isGroupChat ? (
-					<div>{<Avatar>G</Avatar>}</div>
+					<div className="">{<Avatar>G</Avatar>}</div>
 				) : (
 					<div>{<Avatar src={users.find((el) => el._id != id)?.pic} />}</div>
 				)}
-				<div>
+				<div className={`md:block ${chatIsOpen ? "" : "hidden"}`}>
 					{isGroupChat ? (
 						<p className="name">{chatName}</p>
 					) : (
@@ -216,7 +219,7 @@ const ChatUserComp = ({
 					</p>
 				</div>
 			</div>
-			<div>
+			<div className={`md:block ${chatIsOpen ? "" : "hidden"}`}>
 				{latestMessage ? (
 					<p className="time">
 						{new Date(latestMessage?.updatedAt).getHours() +
